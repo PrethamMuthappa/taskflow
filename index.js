@@ -1,3 +1,4 @@
+
 const express=require('express');
 const ejs=require('ejs');
 const path=require('path')
@@ -8,6 +9,7 @@ app.set('view engine','ejs')
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 dotenv.config();
+
 const dbs=require('./config/db');
 const add=require('./routes/add')
 const display=require('./routes/display')
@@ -21,13 +23,9 @@ async function main(){
 
         await dbs();
 
-    
-    app.get('/',(req,res)=>{
-        res.render('index')
-    })
 
     app.use('/',add);
-    app.use('/',display)
+    app.use('/',display);
 
 }
 catch(error){
@@ -44,13 +42,6 @@ app.listen(Port,()=>{
 }
 
 main()
-
-
-
-
-
-
-const port=process.env.PORT;
 
 
 

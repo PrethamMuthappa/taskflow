@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Task Manager</title>
 <style>
+
+@media (max-width: 768px) {
+    .container {
+      max-width: 100%;
+    }
+    .table-section {
+      max-width: 100%;
+      margin-left: 0;
+      margin-top: 20px;
+    }
+  }
+
   body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -50,18 +63,96 @@
     background-color: #28a745;
     margin-top: 10px;
   }
+
+  .table-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-left: 20px;
+    flex-grow: 1;
+    max-width: calc(50% - 20px); /* Adjust this value if needed */
+    box-sizing: border-box;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+
+  th {
+    background-color: #f4f4f4;
+  }
+
+  .task-buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  .task-buttons button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 0 3px;
+  }
+
+  .checkbox-cell {
+    text-align: center;
+  }
 </style>
 </head>
 <body>
 <div class="container">
   <h2>Task Manager</h2>
-  <form action="/add" method="post">
+
+  <form action="/" method="post">
     <input class="input-field" type="text" name="data" placeholder="Enter a task">
     <button class="btn" type="submit">Submit</button>
   </form>
-  <button class="btn view-btn">View Task</button>
+
 </div>
+
+
+<div class="table-section">
+  <h2>Task List</h2>
+  <table>
+    <tr>
+      <th class="checkbox-cell"></th>
+      <th>Task ID</th>
+      <th>Action</th>
+    </tr>
+    <% for (let i = 0; i < mytasks.length; i++) { %>
+    <tr>
+      <tr>
+        <td class="checkbox-cell"><input type="checkbox"></td>
+       
+          <td><%= mytasks[i].tasks %></td>
+          
+          <td class="task-buttons">
+            <button>Update</button>
+            <button>Delete</button>
+          </td>
+        
+      </tr>
+
+      <% } %>
+      
+  </table>
+</div>
+
+
 </body>
 </html>
 
 <script src="/index.js"></script>
+<script src="/routes/add.js"></script>
