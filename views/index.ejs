@@ -139,8 +139,15 @@
           <td><%= mytasks[i].tasks %></td>
           
           <td class="task-buttons">
-            <button>Update</button>
-            <button>Delete</button>
+            <form action="/update/<%= mytasks[i]._id %> "  method="post"  >
+              <input type="text" name="up" value="<%= mytasks[i]._id %>" hidden>
+              <button type="submit">Update</button>
+            </form>
+      
+            <form action="/delete/<%= mytasks[i]._id %>" method="post"  style="display: inline;"> 
+              <button type="submit">Delete</button>
+            </form>
+            
           </td>
         
       </tr>

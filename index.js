@@ -12,7 +12,7 @@ dotenv.config();
 
 const dbs=require('./config/db');
 const add=require('./routes/add')
-const display=require('./routes/display')
+
 const Port=process.env.PORT
 
 
@@ -25,7 +25,7 @@ async function main(){
 
 
     app.use('/',add);
-    app.use('/',display);
+   
 
 }
 catch(error){

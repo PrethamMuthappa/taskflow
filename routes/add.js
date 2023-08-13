@@ -2,7 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const app = express(); // Define the app instance
+const app = express(); 
 const router = express.Router();
 const todo = require('../model/taskmodel');
 
@@ -14,7 +14,7 @@ app.use(express.json());
 const { error, handler } = require('../middleware/errorhandle');
 const { log } = require('console');
 
-// Define the POST route to add tasks
+//insert data
 router.post('/', async (req, res) => {
   try {
     const { data } = req.body;
@@ -25,14 +25,14 @@ router.post('/', async (req, res) => {
 
     await todos.save();
 
-    res.redirect('/add'); // Redirect to the GET route to render the view
+    res.redirect('/'); 
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred');
   }
 });
 
-// Define the GET route to render the view
+//find and display
 router.get('/', async (req, res) => {
   try {
     const mytasks = await todo.find().exec();
@@ -40,22 +40,47 @@ router.get('/', async (req, res) => {
       mytasks: mytasks
     });
     console.log(mytasks)
-    res.redirect('/add')
+    
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred');
   }
 });
 
-router.post('/delete/:id',async(req,res)=>{
-  const taskid=req.params.id;
-  const del=await todo.deleteOne();
-  res.render('index',{
-    del:del
-  })
+//update
+
+router.post('/update/:id',async(req,res)=>{
+  try{
+  const updateid=req.params.id;
+  const updateddata=req.body.up
+  await todo.findByIdAndUpdate(updateid,{tasks:updateddata})
+  res.redirect('/')
+  }
+  catch(error)
+  {
+    console.error(error);
+    res.status(500).send('error')
+  }
 })
 
-app.use('/', router); // Mount the router on the main app
+//delete 
+
+router.post('/delete/:id',async(req,res)=>{
+  try{
+
+  
+  const taskid=req.params.id;
+  await todo.findByIdAndRemove(taskid);
+  res.redirect('/');
+  }
+  catch(error){
+    console.error(error);
+    res.status(500).send('error')
+  }
+})
+
+app.use('/', router);
 
 module.exports = app;
+module.exports=router
 
