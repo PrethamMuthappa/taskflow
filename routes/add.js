@@ -52,7 +52,7 @@ router.get('/', async (req, res) => {
 router.post('/update/:id',async(req,res)=>{
   try{
   const updateid=req.params.id;
-  const updateddata=req.body.up
+  const updateddata=req.body.up;
   await todo.findByIdAndUpdate(updateid,{tasks:updateddata})
   res.redirect('/')
   }
@@ -62,6 +62,10 @@ router.post('/update/:id',async(req,res)=>{
     res.status(500).send('error')
   }
 })
+
+
+
+
 
 //delete 
 
@@ -78,6 +82,10 @@ router.post('/delete/:id',async(req,res)=>{
     res.status(500).send('error')
   }
 })
+
+
+
+
 
 app.use('/', router);
 
